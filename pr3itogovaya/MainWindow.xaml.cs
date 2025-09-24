@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pr3itogovaya.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,27 @@ namespace pr3itogovaya
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow init;
+        public List<Pawn> Pawns = new List<Pawn>();
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();   
+            init = this;
+    }
+
+        private void SelectTile(object sender, MouseButtonEventArgs e)
+        {
+
         }
+        public void OnSelect(Pawn pawn)
+        {
+            // Снятие выделения с других пешек
+            foreach (Pawn p in Pawns)
+                if (p != pawn && p.Select)
+                    p.SelectFigure(null, null);
+
+            
+        }
+
     }
 }
