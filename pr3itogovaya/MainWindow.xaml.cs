@@ -22,7 +22,7 @@ namespace pr3itogovaya
     public partial class MainWindow : Window
     {
         public List<Pawn> Pawns = new List<Pawn>();
-        //public List<Bishop> Bishops = new List<Bishop>();
+        public List<Bishop> Bishops = new List<Bishop>();
         public static MainWindow init;
 
         public MainWindow()
@@ -77,10 +77,10 @@ namespace pr3itogovaya
             }
 
             //// Создание слонов
-            //Bishops.Add(new Bishop(2, 0, false));  // Белый слон (c1)
-            //Bishops.Add(new Bishop(5, 0, false));  // Белый слон (f1)
-            //Bishops.Add(new Bishop(2, 7, true));   // Черный слон (c8)
-            //Bishops.Add(new Bishop(5, 7, true));   // Черный слон (f8)
+            Bishops.Add(new Bishop(2, 0, false));  // Белый слон (c1)
+            Bishops.Add(new Bishop(5, 0, false));  // Белый слон (f1)
+            Bishops.Add(new Bishop(2, 7, true));   // Черный слон (c8)
+            Bishops.Add(new Bishop(5, 7, true));   // Черный слон (f8)
 
             CreateFigures();
         }
@@ -108,24 +108,24 @@ namespace pr3itogovaya
             }
 
             //// Создание слонов
-            //foreach (Bishop bishop in Bishops)
-            //{
-            //    bishop.Figure = new Grid()
-            //    {
-            //        Width = 50,
-            //        Height = 50
-            //    };
+            foreach (Bishop bishop in Bishops)
+            {
+                bishop.Figure = new Grid()
+                {
+                    Width = 50,
+                    Height = 50
+                };
 
-            //    if (bishop.Black)
-            //        bishop.Figure.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Images/Bishop (black).png")));
-            //    else
-            //        bishop.Figure.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Images/Bishop.png")));
+                if (bishop.Black)
+                    bishop.Figure.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Images/Bishop (black).png")));
+                else
+                    bishop.Figure.Background = new ImageBrush(new BitmapImage(new Uri(@"pack://application:,,,/Images/Bishop.png")));
 
-            //    Grid.SetColumn(bishop.Figure, bishop.X);
-            //    Grid.SetRow(bishop.Figure, bishop.Y);
-            //    bishop.Figure.MouseDown += bishop.SelectFigure;
-            //    gameBoard.Children.Add(bishop.Figure);
-            //}
+                Grid.SetColumn(bishop.Figure, bishop.X);
+                Grid.SetRow(bishop.Figure, bishop.Y);
+                bishop.Figure.MouseDown += bishop.SelectFigure;
+                gameBoard.Children.Add(bishop.Figure);
+            }
         }
 
         private void SelectTile(object sender, MouseButtonEventArgs e)
@@ -142,12 +142,12 @@ namespace pr3itogovaya
                 return;
             }
 
-            //// Обработка хода слона
-            //Bishop selectedBishop = Bishops.Find(b => b.Select);
-            //if (selectedBishop != null)
-            //{
-            //    selectedBishop.Transform(X, Y);
-            //}
+            // Обработка хода слона
+            Bishop selectedBishop = Bishops.Find(b => b.Select);
+            if (selectedBishop != null)
+            {
+                selectedBishop.Transform(X, Y);
+            }
         }
 
         public void OnSelect(Pawn pawn)
@@ -157,23 +157,23 @@ namespace pr3itogovaya
                 if (p != pawn && p.Select)
                     p.SelectFigure(null, null);
 
-            //// Снятие выделения со всех слонов
-            //foreach (Bishop b in Bishops)
-            //    if (b.Select)
-            //        b.SelectFigure(null, null);
+            // Снятие выделения со всех слонов
+            foreach (Bishop b in Bishops)
+                if (b.Select)
+                    b.SelectFigure(null, null);
         }
 
-        //public void OnSelectBishop(Bishop bishop)
-        //{
-        //    // Снятие выделения с других слонов
-        //    foreach (Bishop b in Bishops)
-        //        if (b != bishop && b.Select)
-        //            b.SelectFigure(null, null);
+        public void OnSelectBishop(Bishop bishop)
+        {
+            // Снятие выделения с других слонов
+            foreach (Bishop b in Bishops)
+                if (b != bishop && b.Select)
+                    b.SelectFigure(null, null);
 
-        //    // Снятие выделения со всех пешек
-        //    foreach (Pawn p in Pawns)
-        //        if (p.Select)
-        //            p.SelectFigure(null, null);
-        //}
+            // Снятие выделения со всех пешек
+            foreach (Pawn p in Pawns)
+                if (p.Select)
+                    p.SelectFigure(null, null);
+        }
     }
 }
